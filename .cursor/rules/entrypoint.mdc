@@ -1,0 +1,48 @@
+---
+description: "Entrypoint rules for the Sando project - a Rust web application using Axum, SQLx, and Maud for database connection management"
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Sando Project - Cursor AI Agent Rules
+
+You are working on **Sando**, a Rust web application that manages database connection strings. This project uses:
+
+- **Axum** for the web framework
+- **SQLx** for database operations 
+- **Maud** for HTML templating
+- **Serde** for serialization/deserialization
+
+## Project Structure
+
+- `src/main.rs` - Application entry point and server setup
+- `src/models.rs` - Data structures (T1.x tags)
+- `src/routes/` - Route handlers (R1.x, R2.x, R3.x tags)
+- `src/components/` - Maud HTML components (C1.x, C2.x tags)
+
+## Code Organization Tags
+
+The codebase uses structured tagging for machine-readability:
+- **T1.x** - Data structures and models
+- **R1.x** - Index route handlers
+- **R2.x** - Submit route handlers  
+- **R3.x** - Connections route handlers
+- **C1.x** - Home page components
+- **C2.x** - Status page components
+
+## Key Conventions
+
+1. **File Headers**: Each file includes a structured comment block with description, tags, and purpose
+2. **Section Comments**: Major code sections are labeled with tags (e.g., "// R1.1 Dependencies")
+3. **Error Handling**: Use `.unwrap_or_else()` for graceful fallbacks in database operations
+4. **HTML Generation**: Use Maud's `html!` macro with semantic class names
+5. **Database**: SQLx with async/await patterns for all database operations
+
+## Current Features
+
+- Submit database connection strings via web form
+- Store connections in SQLite database with timestamps
+- View all submitted connections in a list
+- Status pages for success/error feedback
+
+When making changes, maintain the tagging system and follow the established patterns for consistency.

@@ -1,0 +1,588 @@
+/**
+ * Sando Stylesheet - Dark Elegance Theme
+ * ======================================
+ *
+ * Agent Instructions:
+ * This file is documented for machine-readability. Use the table of contents
+ * and search for the section number (e.g., "S2.1") to navigate.
+ * Each section is tagged to link its purpose to the broader application structure.
+ */
+
+/* ==========================================================================
+   S1. BASE STYLES
+   ========================================================================== */
+
+/* S1.1 Reset & Globals */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #0A0E14;
+    color: #E6EDF3;
+}
+
+/* S1.2 Typography */
+h1 {
+    color: #E6EDF3;
+    margin-bottom: 1.5rem;
+    font-size: 2.25rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+h3 {
+    color: #c9d1d9;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+p {
+    color: #8b949e;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+code {
+    background: #161b22;
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+}
+
+a {
+    color: #2F81F7;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #58A6FF;
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   S2. LAYOUT
+   ========================================================================== */
+
+/* S2.1 Containers */
+.container {
+    background: #161B22;
+    padding: 2.5rem;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+}
+
+.container-wide {
+    max-width: 800px;
+}
+
+/* ==========================================================================
+   S3. COMPONENTS
+   ========================================================================== */
+
+/* S3.1 Forms */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #c9d1d9;
+    font-size: 0.9rem;
+}
+
+input[type='text'], input[type='number'], textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #30363d;
+    background-color: #0d1117;
+    color: #E6EDF3;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type='text']:focus, input[type='number']:focus, textarea:focus {
+    outline: none;
+    border-color: #2F81F7;
+    box-shadow: 0 0 0 3px rgba(47, 129, 247, 0.3);
+}
+
+textarea.token-input {
+    min-height: 120px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    resize: vertical;
+}
+
+/* S3.2 Buttons */
+button, .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    background: #2F81F7; /* Electric blue */
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-inline {
+    width: auto;
+    padding: 0.75rem 1.5rem;
+    margin-top: 1.5rem;
+}
+
+button:hover, .btn:hover {
+    background-color: #58A6FF;
+}
+
+button:active, .btn:active {
+    transform: scale(0.98);
+}
+
+.btn-secondary {
+    background: #21262d;
+    border-color: #30363d;
+    color: #c9d1d9;
+}
+.btn-secondary:hover {
+    background: #30363d;
+    border-color: #8b949e;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #DA3633;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+.btn-danger:hover:not(:disabled) {
+    background-color: #F85149;
+}
+
+.btn-danger:disabled {
+    background: #21262d;
+    color: #8b949e;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn-small {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+/* S3.3 Status Indicators */
+.status-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    border: 2px solid;
+}
+
+.status-icon-success {
+    color: #3FB950;
+    border-color: #3FB950;
+    background-color: rgba(63, 185, 80, 0.1);
+}
+
+.status-icon-error {
+    color: #F85149;
+    border-color: #F85149;
+    background-color: rgba(248, 81, 73, 0.1);
+}
+
+
+/* S3.4 Connection Display */
+.connection-value {
+    background: #0d1117;
+    padding: 1rem;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+    word-break: break-all;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    border: 1px solid #30363d;
+}
+
+.connections-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.connection-item {
+    background: #0d1117;
+    padding: 1.25rem;
+    border-radius: 6px;
+    border: 1px solid #30363d;
+    transition: border-color 0.2s ease;
+}
+
+.connection-item:hover {
+    border-color: #2F81F7;
+}
+
+.connection-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.connection-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.connection-id { 
+    font-size: 0.875rem; 
+    color: #8b949e;
+    font-weight: 600;
+}
+
+.connection-string, .connection-port, .proxy-url, .target-url { 
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #E6EDF3;
+}
+
+.connection-date { 
+    font-size: 0.8rem;
+    color: #8b949e;
+    margin-top: 0.5rem;
+}
+
+.proxy-url code, .target-url code {
+    background: rgba(47, 129, 247, 0.15);
+    color: #58A6FF;
+    font-weight: 600;
+    border: 1px solid rgba(47, 129, 247, 0.3);
+}
+
+/* S3.5 Info Box */
+.info-box {
+    background: #161b22;
+    border: 1px solid #388bfd;
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.info-box h3 {
+    color: #58A6FF;
+}
+
+.info-box p {
+    color: #c9d1d9;
+}
+
+/* ==========================================================================
+   S4. PAGE-SPECIFIC STYLES
+   ========================================================================== */
+
+/* S4.1 Page Backgrounds (Replacing gradients with solid colors or subtle effects) */
+body.bg-primary, body.bg-success, body.bg-error, body.bg-info {
+    background-color: #0A0E14;
+}
+
+/* S4.2 Status/Submit Page */
+.status-container {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.service-link-container {
+    margin: 2rem 0 3rem 0;
+    padding: 2rem;
+    background: rgba(13, 17, 23, 0.5);
+    border-radius: 8px;
+    border: 1px solid #30363d;
+}
+
+.service-link {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #58A6FF;
+    text-decoration: none;
+    padding: 1.5rem 2rem;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    word-break: break-all;
+    margin-bottom: 1rem;
+}
+
+.service-link:hover {
+    border-color: #58A6FF;
+    color: #80bfff;
+    background: #161b22;
+}
+
+.service-description {
+    color: #8b949e;
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+.error-message {
+    color: #f85149;
+    font-size: 1.1rem;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: rgba(218, 54, 51, 0.1);
+    border: 1px solid rgba(218, 54, 51, 0.3);
+    border-radius: 6px;
+}
+
+.status-container .actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.status-container .actions .btn {
+    width: auto;
+    min-width: 150px;
+}
+
+/* S4.3 Connections Page */
+.empty-state {
+    text-align: center;
+    color: #8b949e;
+    padding: 3rem 0;
+}
+
+.connections-controls {
+    background: #161B22;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #30363d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.selection-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: #c9d1d9;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #30363d;
+    border-radius: 4px;
+    background-color: #0d1117;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #2F81F7;
+    border-color: #2F81F7;
+}
+
+input[type="checkbox"]:checked::before {
+    content: '✓';
+    font-size: 12px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input[type="checkbox"]:indeterminate {
+    background-color: #2F81F7;
+    border-color: #2F81F7;
+}
+
+input[type="checkbox"]:indeterminate::before {
+    content: '−';
+    font-size: 12px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.connection-count {
+    font-size: 0.875rem;
+    color: #8b949e;
+    font-weight: 500;
+}
+
+.connection-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.connection-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+}
+
+.connection-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ==========================================================================
+   S5. UTILITY CLASSES
+   ========================================================================== */
+
+/*
+ * S5.1 Alignment & Spacing
+ * Used: Globally throughout templates.
+ */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+/* ==========================================================================
+   S6. PAYMENT PAGE STYLES
+   ========================================================================== */
+.payment-container {
+    max-width: 500px;
+    margin: 4rem auto;
+    padding: 2.5rem;
+    background: #161B22;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.error-header {
+    color: #F97316; /* Sun Orange */
+    margin-bottom: 2rem;
+}
+
+.error-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.payment-details {
+    background: #0d1117;
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin: 2rem 0;
+    border-left: 4px solid #F97316; /* Sun Orange */
+}
+
+.amount {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #E6EDF3;
+    margin: 0.5rem 0;
+}
+
+.service-info {
+    font-size: 0.9rem;
+    color: #8b949e;
+    word-break: break-all;
+}
+
+.processing {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.status-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 6px;
+    text-align: left;
+    border: 1px solid;
+}
+
+.status-success {
+    background: rgba(63, 185, 80, 0.1);
+    color: #3FB950;
+    border-color: rgba(63, 185, 80, 0.3);
+}
+
+.status-error {
+    background: rgba(248, 81, 73, 0.1);
+    color: #F85149;
+    border-color: rgba(248, 81, 73, 0.3);
+}
+
+.btn-cancel {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+}
+.btn-cancel:hover {
+    background: #30363d;
+    border-color: #8b949e;
+    color: #fff;
+}
