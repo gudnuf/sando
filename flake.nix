@@ -26,11 +26,19 @@
           rustToolchain
           pkg-config
           openssl.dev
+          cmake
+          gcc
+          gnumake
+          perl
+          python3
+          protobuf
         ];
 
         buildInputs = with pkgs; [
           sqlite
           openssl
+          zlib
+          libz
         ] ++ lib.optionals stdenv.isDarwin [
           darwin.apple_sdk.frameworks.Security
           darwin.apple_sdk.frameworks.SystemConfiguration

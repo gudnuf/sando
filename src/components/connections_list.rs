@@ -20,7 +20,7 @@ pub fn connections_list(connections: &[Connection]) -> Markup {
             head {
                 meta charset="utf-8";
                 meta name="viewport" content="width=device-width, initial-scale=1";
-                title { "Sando - Connections" }
+                title { "Sando.Blue - Ocean Harbor" }
                 link rel="preconnect" href="https://fonts.googleapis.com";
                 link rel="preconnect" href="https://fonts.gstatic.com" crossorigin;
                 link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet";
@@ -56,13 +56,13 @@ pub fn connections_list(connections: &[Connection]) -> Markup {
             }
             body {
                 div class="container container-wide" {
-                    h1 { "Active Tunnels" }
+                    h1 { "🌊 Ocean Harbor" }
                     @if connections.is_empty() {
                         div class="empty-state" {
-                            p { "No active tunnels. Create one to get started." }
+                            p { "No vessels in harbor. Launch your first tunnel to set sail." }
                             a href="/" class="btn" { 
-                                span { "+" }
-                                "Create Tunnel" 
+                                span { "🚀" }
+                                "Set Sail" 
                             }
                         }
                     } @else {
@@ -70,18 +70,18 @@ pub fn connections_list(connections: &[Connection]) -> Markup {
                             div class="selection-controls" {
                                 label class="checkbox-label" {
                                     input type="checkbox" id="select-all" onchange="toggleSelectAll()";
-                                    span { "Select All" }
+                                    span { "⚓ Select Fleet" }
                                 }
                                 button type="button" class="btn btn-danger btn-small" id="batch-delete-btn" onclick="deleteBatch()" disabled { 
-                                    span { "🗑️" }
-                                    "Delete" 
+                                    span { "🌪️" }
+                                    "Sink" 
                                 }
                             }
                             div class="connection-count" {
                                 span id="selected-count" { "0" }
                                 " of "
                                 (connections.len())
-                                " selected"
+                                " vessels selected"
                             }
                         }
                         
@@ -100,23 +100,23 @@ pub fn connections_list(connections: &[Connection]) -> Markup {
                                             };
                                             @let full_url = format!("http://{}.localhost:3000", connection.connection_string);
                                             a href=(full_url) target="_blank" title=(format!("{}.localhost:3000", connection.connection_string)) {
-                                                (truncated_connection) ".localhost:3000"
+                                                "🚢 " (truncated_connection) ".localhost:3000"
                                             }
                                         }
                                         div class="connection-actions" {
-                                            button type="button" class="btn btn-small btn-danger" onclick={ "deleteConnection(" (connection.id) ")" } { "🗑️" }
+                                            button type="button" class="btn btn-small btn-danger" onclick={ "deleteConnection(" (connection.id) ")" } { "⚓" }
                                         }
                                     }
                                     div class="connection-date" {
-                                        "Created: " (connection.created_at)
+                                        "⏰ Launched: " (connection.created_at)
                                     }
                                 }
                             }
                         }
                         div class="actions mt-4" {
                             a href="/" class="btn btn-secondary" { 
-                                span { "❮" }
-                                "Back" 
+                                span { "🌊" }
+                                "New Dive" 
                             }
                         }
                     }
@@ -164,7 +164,7 @@ pub fn connections_list(connections: &[Connection]) -> Markup {
                             if (selectedCheckboxes.length === 0) return;
                             
                             const count = selectedCheckboxes.length;
-                            if (!confirm(`Delete ${count} tunnel${count > 1 ? 's' : ''}?`)) return;
+                            if (!confirm(`Sink ${count} vessel${count > 1 ? 's' : ''}?`)) return;
                             
                             const form = document.getElementById('batch-delete-form');
                             form.innerHTML = '';
@@ -181,7 +181,7 @@ pub fn connections_list(connections: &[Connection]) -> Markup {
                         }
                         
                         function deleteConnection(id) {
-                            if (!confirm('Delete this tunnel?')) return;
+                            if (!confirm('Sink this vessel?')) return;
                             
                             fetch(`/connections/${id}`, { 
                                 method: 'DELETE',
@@ -193,12 +193,12 @@ pub fn connections_list(connections: &[Connection]) -> Markup {
                                 if (response.ok) {
                                     window.location.reload();
                                 } else {
-                                    alert('Failed to delete tunnel');
+                                    alert('Failed to sink vessel');
                                 }
                             })
                             .catch(err => {
                                 console.error('Delete failed:', err);
-                                alert('Failed to delete tunnel');
+                                alert('Failed to sink vessel');
                             });
                         }
 

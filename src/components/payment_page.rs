@@ -22,7 +22,7 @@ pub fn payment_page(connection_string: String, port: u16, protocol: String, host
         (DOCTYPE)
         html {
             head {
-                title { "Payment Required - Sando" }
+                title { "Ocean Toll - Sando.Blue" }
                 link rel="preconnect" href="https://fonts.googleapis.com";
                 link rel="preconnect" href="https://fonts.gstatic.com" crossorigin;
                 link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet";
@@ -34,14 +34,14 @@ pub fn payment_page(connection_string: String, port: u16, protocol: String, host
             body {
                 div class="payment-container" {
                     div class="error-header" {
-                        div class="error-icon" { "⚡" }
-                        h1 { "Payment Required" }
+                        div class="error-icon" { "🏴‍☠️" }
+                        h1 { "Ocean Toll Required" }
                     }
                     
                     div class="payment-details" {
                         div class="amount" { (payment_request.amount.unwrap().to_string()) " sats" }
                         p class="service-info" { 
-                            "Service: " code { (service_url) }
+                            "⚓ Destination: " code { (service_url) }
                         }
                     }
                     
@@ -51,7 +51,7 @@ pub fn payment_page(connection_string: String, port: u16, protocol: String, host
                         
                         div class="form-group" {
                             label for="cashu-token" { 
-                                "Cashu Token" 
+                                "🪙 Cashu Token" 
                             }
                             textarea 
                                 id="cashu-token" 
@@ -64,8 +64,8 @@ pub fn payment_page(connection_string: String, port: u16, protocol: String, host
                         div id="status-message" class="status-message" style="display: none;" {}
                         
                         div class="actions mt-4" {
-                            button type="submit" class="btn" { "Submit Payment" }
-                            a href="/" class="btn btn-cancel mt-2" { "Cancel" }
+                            button type="submit" class="btn" { "🌊 Pay Passage" }
+                            a href="/" class="btn btn-cancel mt-2" { "🏃‍♂️ Abandon Ship" }
                         }
                     }
                 }
@@ -101,19 +101,19 @@ fn payment_script() -> String {
             const cashuToken = tokenInput.value.trim();
             
             if (!cashuToken) {
-                showStatus('Please paste your Cashu token.', true);
+                showStatus('🪙 Please paste your Cashu token to pay the ocean toll.', true);
                 return;
             }
             
             if (!cashuToken.startsWith('cashu')) {
-                showStatus('Invalid token format. It must start with "cashuA".', true);
+                showStatus('⚠️ Invalid token format. It must start with "cashuA".', true);
                 return;
             }
             
             // Show processing state
             form.classList.add('processing');
             submitBtn.disabled = true;
-            showStatus('Processing payment...');
+            showStatus('🌊 Navigating through the payment waters...');
             
             try {
                 const formData = new FormData(form);
@@ -131,7 +131,7 @@ fn payment_script() -> String {
                 });
                 
                 if (response.ok) {
-                    showStatus('Payment successful! Redirecting...', false);
+                    showStatus('⚓ Passage paid! Setting sail to your destination...', false);
                     const responseText = await response.text();
                     // Disable further interaction while redirecting
                     form.querySelectorAll('input, textarea, button').forEach(el => el.disabled = true);
@@ -143,11 +143,11 @@ fn payment_script() -> String {
                     }, 1500);
                 } else {
                     const errorText = await response.text();
-                    showStatus(`Payment failed: ${errorText || 'Please check your token and try again.'}`, true);
+                    showStatus(`🌪️ Payment failed: ${errorText || 'Please check your token and try again.'}`, true);
                 }
             } catch (error) {
                 console.error('Payment error:', error);
-                showStatus('A network error occurred. Please try again.', true);
+                showStatus('🌊 The ocean depths swallowed your request. Please try again.', true);
             } finally {
                 form.classList.remove('processing');
                 submitBtn.disabled = false;

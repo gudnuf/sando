@@ -23,7 +23,7 @@ pub fn status_page(success: bool, message: String, subdomain: String, protocol: 
             head {
                 meta charset="utf-8";
                 meta name="viewport" content="width=device-width, initial-scale=1";
-                title { "Sando - Status" }
+                title { "Sando.Blue - Ocean Status" }
                 link rel="preconnect" href="https://fonts.googleapis.com";
                 link rel="preconnect" href="https://fonts.gstatic.com" crossorigin;
                 link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet";
@@ -32,8 +32,8 @@ pub fn status_page(success: bool, message: String, subdomain: String, protocol: 
             body {
                 div class="container status-container" {
                     @if success {
-                        div class="status-icon status-icon-success" { "✓" }
-                        h1 { "Tunnel Created" }
+                        div class="status-icon status-icon-success" { "🌊" }
+                        h1 { "Tunnel Established" }
                         
                         div class="service-link-container" {
                             a href=(service_url) 
@@ -43,22 +43,22 @@ pub fn status_page(success: bool, message: String, subdomain: String, protocol: 
                                 (service_url)
                             }
                             p class="service-description" { 
-                                "Click the link above to access your proxied service."
+                                "🚀 Your tunnel is now flowing through the ocean depths. Click above to surf through!"
                             }
                         }
                         
                         div class="actions" {
-                            a href="/" class="btn btn-secondary" { "＋ New Tunnel" }
-                            a href="/connections" class="btn btn-secondary" { "☰ View All" }
+                            a href="/" class="btn btn-secondary" { "🌊 New Dive" }
+                            a href="/connections" class="btn btn-secondary" { "⚓ Harbor View" }
                         }
                     } @else {
-                        div class="status-icon status-icon-error" { "✗" }
-                        h1 { "Tunnel Failed" }
+                        div class="status-icon status-icon-error" { "⚠️" }
+                        h1 { "Stormy Seas" }
                         @if !message.is_empty() {
-                            p class="error-message" { (message) }
+                            p class="error-message" { "🌪️ " (message) }
                         }
                         div class="actions" {
-                            a href="/" class="btn" { "❮ Try Again" }
+                            a href="/" class="btn" { "🔄 Try Again" }
                         }
                     }
                 }
