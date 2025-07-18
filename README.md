@@ -38,6 +38,20 @@ export PORT=3000 #default
 cargo run
 ```
 
+
+### Server Deployment
+
+For production deployments, Sando requires:
+
+1. **Domain Configuration**: 
+   - An A record pointing your root domain to your server
+   - A wildcard subdomain record (`*.yourdomain.com`) pointing to the same server
+
+2. **Nginx Reverse Proxy**: 
+   - The server deployment for sando.blue is using https://github.com/gudnuf/ubuntu-deploy-nix
+   - Handles subdomain routing to forward requests to the appropriate holesail connections
+   - Enables the reverse proxy functionality via subdomain routing (e.g., `{connection-string}.yourdomain.com`)
+
 ## Features
 
 - ✅ Reverse proxy via subdomain routing (e.g., `{connection-string}.{HOST}:{PORT}`)
