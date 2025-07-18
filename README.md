@@ -23,7 +23,7 @@ For the server to work you will need to install [holesail](https://holesail.io).
 
 > 🪿‼️ Goose does not understand one bit about how pear.io works \*squawk\*
 
-If you already have nix, then run:
+If you already have nix becasue you are [#based](https://primal.net/search/%23based), then run:
 
 ```bash
 nix profile install github:gudnuf/holesail-nix/latest
