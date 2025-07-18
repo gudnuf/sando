@@ -7,7 +7,7 @@ A Rust web application built with Axum that manages database connection strings 
 - ✅ Submit database connection strings via web form
 - ✅ Store connections in SQLite database with timestamps
 - ✅ View all submitted connections in a list
-- ✅ Reverse proxy via subdomain routing (e.g., `{connection-string}.localhost:3000`)
+- ✅ Reverse proxy via subdomain routing (e.g., `{connection-string}.{HOST}:{PORT}`)
 - ✅ **NUT-24: HTTP 402 Payment Required** - Cashu token-based payments for connection submissions
 
 ## Tech Stack
@@ -40,7 +40,7 @@ Sando implements [NUT-24: HTTP 402 Payment Required](https://github.com/cashubtc
 #### 1. Request without payment (returns 402)
 
 ```bash
-curl -X POST http://localhost:3000/submit \
+curl -X POST http://${HOST:-localhost}:${PORT:-3000}/submit \
   -d "connection=myapp&port=8080" \
   -H "Content-Type: application/x-www-form-urlencoded" \
   -v
@@ -69,7 +69,7 @@ Payment required. Please provide a valid Cashu token in the X-Cashu header.
 #### 2. Request with valid payment (returns 200)
 
 ```bash
-curl -X POST http://localhost:3000/submit \
+curl -X POST http://${HOST:-localhost}:${PORT:-3000}/submit \
   -d "connection=myapp&port=8080" \
   -H "Content-Type: application/x-www-form-urlencoded" \
   -H "X-Cashu: validtokenexample123" \
@@ -87,7 +87,7 @@ Content-Type: text/html; charset=utf-8
 #### 3. Request with invalid payment (returns 400)
 
 ```bash
-curl -X POST http://localhost:3000/submit \
+curl -X POST http://${HOST:-localhost}:${PORT:-3000}/submit \
   -d "connection=myapp&port=8080" \
   -H "Content-Type: application/x-www-form-urlencoded" \
   -H "X-Cashu: invalid@token" \
@@ -101,6 +101,29 @@ HTTP/1.1 400 Bad Request
 Invalid payment token provided
 ```
 
+## Configuration
+
+The application uses environment variables for configuration:
+
+- **`HOST`** - The base domain for your application (default: `localhost`)
+- **`PORT`** - The port the server runs on (default: `3000`)
+
+### Examples
+
+```bash
+# Development with default settings
+cargo run
+
+# Development with custom domain
+HOST=myapp.local PORT=3000 cargo run
+
+# Production setup
+HOST=sando.example.com PORT=80 cargo run
+
+# HTTPS behind reverse proxy
+HOST=sando.example.com PORT=8080 cargo run
+```
+
 ## Quick Start
 
 ```bash
@@ -109,8 +132,8 @@ git clone <repository>
 cd sando
 cargo run
 
-# Access the application
-open http://localhost:3000
+# Access the application  
+open http://${HOST:-localhost}:${PORT:-3000}
 ```
 
 ## Routes
@@ -118,7 +141,7 @@ open http://localhost:3000
 - `GET /` - Home page with connection form
 - `POST /submit` - Submit new connection (requires payment)
 - `GET /connections` - View all connections
-- `{connection-string}.localhost:3000/*` - Reverse proxy to stored connection
+- `{connection-string}.{HOST}:{PORT}/*` - Reverse proxy to stored connection
 
 ## Code Organization
 

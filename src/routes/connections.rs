@@ -16,28 +16,28 @@ use serde::Deserialize;
 // R3.2 List Connections Handler
 // Fetches all connections from the database and renders the
 // `connections_list` component.
-#[tracing::instrument(name = "list_connections", skip(pool))]
-pub async fn list_connections(State(pool): State<AppState>) -> Html<String> {
+#[tracing::instrument(name = "list_connections", skip(app_state))]
+pub async fn list_connections(State(app_state): State<AppState>) -> Html<String> {
     let connections = sqlx::query_as::<_, Connection>(
         "SELECT id, connection_string, port, created_at FROM connections ORDER BY created_at DESC",
     )
-    .fetch_all(pool.as_ref())
+    .fetch_all(app_state.pool.as_ref())
     .await
     .unwrap_or_else(|_| vec![]);
 
-    Html(connections_list(&connections).into_string())
+    Html(connections_list(&connections, &app_state.host, app_state.port).into_string())
 }
 
 // R3.3 Delete Single Connection Handler
 // Deletes a single connection by ID and redirects back to the connections list
-#[tracing::instrument(name = "delete_connection", skip(pool))]
+#[tracing::instrument(name = "delete_connection", skip(app_state))]
 pub async fn delete_connection(
-    State(pool): State<AppState>,
+    State(app_state): State<AppState>,
     Path(id): Path<i64>,
 ) -> Result<Redirect, StatusCode> {
     sqlx::query("DELETE FROM connections WHERE id = ?")
         .bind(id)
-        .execute(pool.as_ref())
+        .execute(app_state.pool.as_ref())
         .await
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
@@ -52,9 +52,9 @@ pub struct BatchDeleteForm {
 
 // R3.5 Batch Delete Handler
 // Deletes multiple connections and redirects back to the connections list
-#[tracing::instrument(name = "batch_delete_connections", skip(pool))]
+#[tracing::instrument(name = "batch_delete_connections", skip(app_state))]
 pub async fn batch_delete_connections(
-    State(pool): State<AppState>,
+    State(app_state): State<AppState>,
     Form(form): Form<BatchDeleteForm>,
 ) -> Result<Redirect, StatusCode> {
     // Parse comma-separated string of IDs
@@ -80,7 +80,7 @@ pub async fn batch_delete_connections(
     }
     
     query
-        .execute(pool.as_ref())
+        .execute(app_state.pool.as_ref())
         .await
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 

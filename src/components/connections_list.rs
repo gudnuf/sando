@@ -13,7 +13,7 @@ use maud::{html, Markup, DOCTYPE};
 
 // C3.2 Connections List Function
 // Generates the Maud Markup for the connections list page.
-pub fn connections_list(connections: &[Connection]) -> Markup {
+pub fn connections_list(connections: &[Connection], host: &str, port: u16) -> Markup {
     html! {
         (DOCTYPE)
         html lang="en" {
@@ -98,9 +98,9 @@ pub fn connections_list(connections: &[Connection]) -> Markup {
                                             } else {
                                                 connection.connection_string.clone()
                                             };
-                                            @let full_url = format!("http://{}.localhost:3000", connection.connection_string);
-                                            a href=(full_url) target="_blank" title=(format!("{}.localhost:3000", connection.connection_string)) {
-                                                "🚢 " (truncated_connection) ".localhost:3000"
+                                            @let full_url = format!("http://{}.{}:{}", connection.connection_string, host, port);
+                                            a href=(full_url) target="_blank" title=(format!("{}.{}:{}", connection.connection_string, host, port)) {
+                                                "🚢 " (truncated_connection) "." (host) ":" (port)
                                             }
                                         }
                                         div class="connection-actions" {

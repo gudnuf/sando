@@ -64,9 +64,9 @@ fn validate_cashu_token(token: &str) -> Result<bool, String> {
 // Processes the form submission, checks for payment, and either:
 // - Returns HTTP 402 with payment request if no valid payment
 // - Inserts the data into the database if payment is valid
-#[tracing::instrument(name = "submit_connection", skip(pool, form, headers))]
+#[tracing::instrument(name = "submit_connection", skip(app_state, form, headers))]
 pub async fn submit_connection(
-    State(pool): State<AppState>,
+    State(app_state): State<AppState>,
     headers: HeaderMap,
     Form(form): Form<ConnectionForm>,
 ) -> Response {
@@ -88,19 +88,19 @@ pub async fn submit_connection(
                             let result = sqlx::query("INSERT INTO connections (connection_string, port) VALUES (?, ?)")
                                 .bind(&form.connection)
                                 .bind(form.port as i32)
-                                .execute(pool.as_ref())
+                                .execute(app_state.pool.as_ref())
                                 .await;
 
                             let (success, message) = match result {
                                 Ok(_) => (
                                     true,
-                                    format!("Connection '{}' on port {} successfully stored! Proxy available at: /proxy/{}", 
-                                           form.connection, form.port, form.connection),
+                                    format!("Connection '{}' on port {} successfully stored! Proxy available at: {}.{}:{}", 
+                                           form.connection, form.port, form.connection, app_state.host, app_state.port),
                                 ),
                                 Err(e) => (false, format!("Failed to store connection: {}", e)),
                             };
 
-                            Html(status_page(success, message, form.connection.clone(), "http".to_string(), "localhost:3000".to_string()).into_string()).into_response()
+                            Html(status_page(success, message, form.connection.clone(), "http".to_string(), format!("{}:{}", app_state.host, app_state.port)).into_string()).into_response()
                         },
                         Ok(false) => {
                             // Generic validation failure
@@ -138,7 +138,7 @@ pub async fn submit_connection(
                 .status(StatusCode::PAYMENT_REQUIRED)
                 .header("X-Cashu", payment_request.to_string())
                 .header("Content-Type", "text/html")
-                .body(payment_page(form.connection, form.port, "http".to_string(), "localhost:3000".to_string(), payment_request).into_string().into())
+                .body(payment_page(form.connection, form.port, "http".to_string(), format!("{}:{}", app_state.host, app_state.port), payment_request).into_string().into())
                 .unwrap();
                 
             response

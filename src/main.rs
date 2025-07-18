@@ -43,7 +43,15 @@ mod routes;
 
 // M1.2 Data Structures
 pub use models::{Connection};
-pub type AppState = Arc<SqlitePool>;
+
+#[derive(Clone)]
+pub struct AppConfig {
+    pub pool: Arc<SqlitePool>,
+    pub host: String,
+    pub port: u16,
+}
+
+pub type AppState = Arc<AppConfig>;
 
 // ==========================================================================
 // M2. APPLICATION LOGIC
@@ -51,7 +59,7 @@ pub type AppState = Arc<SqlitePool>;
 
 // M2.1 App Router
 // This router handles the main application logic for non-proxy requests.
-fn create_app_router(pool: AppState) -> Router {
+fn create_app_router(app_state: AppState) -> Router {
     Router::new()
         .route("/", get(routes::index::index))
         .route("/submit", post(routes::submit::submit_connection))
@@ -60,7 +68,7 @@ fn create_app_router(pool: AppState) -> Router {
         .route("/connections/batch-delete", post(routes::connections::batch_delete_connections))
         .route("/status/connections", get(routes::proxy::get_connection_status))
         .nest_service("/static", ServeDir::new("static"))
-        .with_state(pool)
+        .with_state(app_state)
         .fallback(|| async { (StatusCode::NOT_FOUND, "Not Found") })
 }
 
@@ -68,21 +76,22 @@ fn create_app_router(pool: AppState) -> Router {
 // This is the main entry point for all incoming requests. It checks if the
 // request is for a subdomain and either proxies it or forwards it to the main
 // app router.
-#[tracing::instrument(name = "root_handler", skip(pool, request))]
+#[tracing::instrument(name = "root_handler", skip(app_state, request))]
 async fn root_handler(
-    State(pool): State<AppState>,
+    State(app_state): State<AppState>,
     Host(host): Host,
     request: Request<Body>,
 ) -> Response {
     let host_without_port = host.split(':').next().unwrap_or(&host);
 
-    // Check if the request is for a subdomain.
-    if host_without_port.ends_with(".localhost") && host_without_port != "localhost" {
+    // Check if the request is for a subdomain using the configured host.
+    let base_host = &app_state.host;
+    if host_without_port.ends_with(&format!(".{}", base_host)) && host_without_port != base_host {
         // It's a subdomain; let the proxy handler manage it.
         let (parts, body) = request.into_parts();
         
         match routes::proxy::proxy_handler_subdomain(
-            State(pool),
+            State(app_state),
             Host(host),
             OriginalUri(parts.uri),
             parts.method,
@@ -99,7 +108,7 @@ async fn root_handler(
         }
     } else {
         // It's a standard request; forward it to the main app router.
-        let app_router = create_app_router(pool);
+        let app_router = create_app_router(app_state);
         match app_router.oneshot(request).await {
             Ok(response) => response.into_response(),
             Err(_) => Response::builder()
@@ -135,7 +144,16 @@ async fn main() {
         .await
         .expect("Failed to run migrations");
 
-    let app_state = Arc::new(pool);
+    let port: u16 = std::env::var("PORT")
+        .unwrap_or("3000".to_string())
+        .parse()
+        .expect("PORT must be a valid number");
+
+    let app_state = Arc::new(AppConfig {
+        pool: Arc::new(pool),
+        host: std::env::var("HOST").unwrap_or("localhost".to_string()),
+        port,
+    });
 
     // Start background cleanup task for holesail connections
     tokio::spawn(routes::proxy::cleanup_unused_connections());
@@ -145,18 +163,15 @@ async fn main() {
     let app = Router::new()
         .fallback(root_handler)
         .layer(TraceLayer::new_for_http())
-        .with_state(app_state);
-
-    let port: u16 = 3000;
-    let host: String = "localhost".to_string();
+        .with_state(app_state.clone());
 
     // Create TCP listener
-    let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{}", port)).await.unwrap();
+    let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{}", app_state.port)).await.unwrap();
     
-    println!("🚀 Server running on http://{}:{}", host, port);
+    println!("🚀 Server running on http://{}:{}", app_state.host, app_state.port);
     println!("📦 Database: connections.db");
     println!("🔄 Reverse proxy available at:");
-    println!("   • Subdomain:  {{connection-string}}.{}:{}/{{path}}", host, port);
+    println!("   • Subdomain:  {{connection-string}}.{}:{}/{{path}}", app_state.host, app_state.port);
     
     // Run the server
     axum::serve(listener, app.into_make_service()).await.unwrap();

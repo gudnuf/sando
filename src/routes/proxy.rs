@@ -68,9 +68,9 @@ struct HolesailListEntry {
 
 // R4.3 Subdomain-based Proxy Handler  
 // Routes incoming requests from `{connection_string}.localhost:3000/*` to the appropriate backend service
-#[tracing::instrument(name = "proxy_handler_subdomain", skip(pool, body, headers))]
+#[tracing::instrument(name = "proxy_handler_subdomain", skip(app_state, body, headers))]
 pub async fn proxy_handler_subdomain(
-    State(pool): State<AppState>,
+    State(app_state): State<AppState>,
     Host(host): Host,
     OriginalUri(original_uri): OriginalUri,
     method: Method,
@@ -78,7 +78,7 @@ pub async fn proxy_handler_subdomain(
     body: Body,
 ) -> Result<Response, StatusCode> {
     // Only handle subdomain requests, return 404 for everything else
-    let connection_string = match extract_subdomain(&host) {
+    let connection_string = match extract_subdomain(&host, &app_state.host) {
         Ok(cs) => cs,
         Err(_) => return Err(StatusCode::NOT_FOUND), // Not a subdomain request
     };
@@ -86,14 +86,14 @@ pub async fn proxy_handler_subdomain(
     // Use the full path for subdomain-based proxying
     let proxy_path = original_uri.path();
     
-    proxy_request(pool, &connection_string, proxy_path, original_uri.clone(), method, headers, body).await
+    proxy_request(app_state, &connection_string, proxy_path, original_uri.clone(), method, headers, body).await
 }
 
 // R4.4 Core Proxy Logic
 // Shared logic for both path-based and subdomain-based proxying
-#[tracing::instrument(name = "proxy_request", skip(pool, body, headers))]
+#[tracing::instrument(name = "proxy_request", skip(app_state, body, headers))]
 async fn proxy_request(
-    pool: AppState,
+    app_state: AppState,
     connection_string: &str,
     target_path: &str,
     original_uri: Uri,
@@ -106,7 +106,7 @@ async fn proxy_request(
         "SELECT id, connection_string, port, created_at FROM connections WHERE connection_string = ?",
     )
     .bind(connection_string)
-    .fetch_optional(pool.as_ref())
+    .fetch_optional(app_state.pool.as_ref())
     .await
     .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
@@ -473,12 +473,13 @@ fn generate_connection_name(connection_string: &str, port: u16) -> String {
 }
 
 // Extract connection string from subdomain (e.g., "my-service.localhost:3000" -> "my-service")
-fn extract_subdomain(host: &str) -> Result<String, StatusCode> {
+fn extract_subdomain(host: &str, configured_host: &str) -> Result<String, StatusCode> {
     // Remove port if present
     let host_without_port = host.split(':').next().unwrap_or(host);
     
-    // Check if it's a subdomain of localhost
-    if let Some(subdomain) = host_without_port.strip_suffix(".localhost") {
+    // Check if it's a subdomain of the configured host
+    let suffix = format!(".{}", configured_host);
+    if let Some(subdomain) = host_without_port.strip_suffix(&suffix) {
         if !subdomain.is_empty() {
             Ok(subdomain.to_string())
         } else {
@@ -530,15 +531,15 @@ mod tests {
     #[test]
     async fn test_extract_subdomain() {
         // Test valid subdomains
-        assert_eq!(extract_subdomain("api.localhost"), Ok("api".to_string()));
-        assert_eq!(extract_subdomain("my-service.localhost"), Ok("my-service".to_string()));
-        assert_eq!(extract_subdomain("test-api.localhost:3000"), Ok("test-api".to_string()));
+        assert_eq!(extract_subdomain("api.localhost", "localhost"), Ok("api".to_string()));
+        assert_eq!(extract_subdomain("my-service.localhost", "localhost"), Ok("my-service".to_string()));
+        assert_eq!(extract_subdomain("test-api.localhost:3000", "localhost"), Ok("test-api".to_string()));
         
         // Test invalid cases
-        assert!(extract_subdomain("localhost").is_err());
-        assert!(extract_subdomain(".localhost").is_err());
-        assert!(extract_subdomain("example.com").is_err());
-        assert!(extract_subdomain("").is_err());
+        assert!(extract_subdomain("localhost", "localhost").is_err());
+        assert!(extract_subdomain(".localhost", "localhost").is_err());
+        assert!(extract_subdomain("example.com", "localhost").is_err());
+        assert!(extract_subdomain("", "localhost").is_err());
     }
 
     #[test]

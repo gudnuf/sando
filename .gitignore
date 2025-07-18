@@ -3,3 +3,11 @@
 *.db-shm
 *.db-wal
 .env
+
+# Nix
+result
+result-*
+.direnv/
+
+# Nix flake lock can be committed or ignored based on preference
+# flake.lock
