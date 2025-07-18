@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bgGradient512" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#2563EB;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#1E40AF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0F172A;stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="waveGrad512" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#93C5FD;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#60A5FA;stop-opacity:0.7" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:0.4" />
+    </linearGradient>
+    <radialGradient id="tunnelGrad512" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#F8FAFC;stop-opacity:1" />
+      <stop offset="20%" style="stop-color:#E8F4FD;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#93C5FD;stop-opacity:0.8" />
+      <stop offset="70%" style="stop-color:#60A5FA;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:0.4" />
+    </radialGradient>
+    <filter id="dropShadow512">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glow512">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" fill="url(#bgGradient512)" rx="64"/>
+  
+  <!-- Deep ocean floor layers -->
+  <path d="M0 350 Q50 320 100 350 T200 350 T300 350 T400 350 T512 350 V512 H0 Z" fill="url(#waveGrad512)" opacity="0.7"/>
+  <path d="M0 390 Q80 360 160 390 T320 390 T480 390 T512 390 V512 H0 Z" fill="url(#waveGrad512)" opacity="0.5"/>
+  <path d="M0 430 Q60 410 120 430 T240 430 T360 430 T480 430 T512 430 V512 H0 Z" fill="url(#waveGrad512)" opacity="0.4"/>
+  <path d="M0 470 Q40 455 80 470 T160 470 T240 470 T320 470 T400 470 T512 470 V512 H0 Z" fill="url(#waveGrad512)" opacity="0.3"/>
+  
+  <!-- Underwater ambient particles -->
+  <g opacity="0.4">
+    <circle cx="120" cy="180" r="3" fill="#93C5FD">
+      <animate attributeName="cy" values="180;120;180" dur="12s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0.1;0.4" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="380" cy="220" r="2.5" fill="#60A5FA">
+      <animate attributeName="cy" values="220;160;220" dur="15s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="10s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="450" cy="150" r="2" fill="#E8F4FD">
+      <animate attributeName="cy" values="150;100;150" dur="18s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0.1;0.5" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="80" cy="300" r="3.5" fill="#93C5FD">
+      <animate attributeName="cy" values="300;250;300" dur="10s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0.1;0.4" dur="7s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Main tunnel portal complex -->
+  <g transform="translate(256, 220)">
+    <!-- Outer energy rings -->
+    <circle cx="0" cy="0" r="120" fill="none" stroke="#60A5FA" stroke-width="4" opacity="0.4" filter="url(#dropShadow512)">
+      <animate attributeName="stroke-opacity" values="0.4;0.2;0.4" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="0" r="100" fill="none" stroke="#93C5FD" stroke-width="5" opacity="0.5">
+      <animate attributeName="stroke-opacity" values="0.5;0.3;0.5" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#E8F4FD" stroke-width="4" opacity="0.6">
+      <animate attributeName="stroke-opacity" values="0.6;0.4;0.6" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="0" r="60" fill="none" stroke="#F1F5F9" stroke-width="3" opacity="0.7">
+      <animate attributeName="stroke-opacity" values="0.7;0.5;0.7" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Inner tunnel -->
+    <circle cx="0" cy="0" r="45" fill="url(#tunnelGrad512)" opacity="0.9" filter="url(#glow512)"/>
+    <circle cx="0" cy="0" r="35" fill="none" stroke="#E8F4FD" stroke-width="3" opacity="0.9"/>
+    <circle cx="0" cy="0" r="25" fill="none" stroke="#F1F5F9" stroke-width="2" opacity="0.95"/>
+    <circle cx="0" cy="0" r="15" fill="none" stroke="#F8FAFC" stroke-width="2" opacity="0.98"/>
+    <circle cx="0" cy="0" r="8" fill="#F8FAFC" opacity="0.99"/>
+    
+    <!-- Orbital energy particles -->
+    <g opacity="0.8">
+      <!-- Outer orbit -->
+      <circle cx="70" cy="0" r="4" fill="#93C5FD">
+        <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" dur="12s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="-70" cy="0" r="3.5" fill="#60A5FA">
+        <animateTransform attributeName="transform" type="rotate" values="180 0 0;540 0 0" dur="12s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.7;0.2;0.7" dur="3.5s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- Middle orbit -->
+      <circle cx="0" cy="50" r="3" fill="#E8F4FD">
+        <animateTransform attributeName="transform" type="rotate" values="90 0 0;450 0 0" dur="8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="0" cy="-50" r="3.2" fill="#93C5FD">
+        <animateTransform attributeName="transform" type="rotate" values="270 0 0;630 0 0" dur="8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      
+      <!-- Inner orbit -->
+      <circle cx="35" cy="25" r="2.5" fill="#F1F5F9">
+        <animateTransform attributeName="transform" type="rotate" values="45 0 0;405 0 0" dur="6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.95;0.5;0.95" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="-35" cy="-25" r="2.8" fill="#E8F4FD">
+        <animateTransform attributeName="transform" type="rotate" values="225 0 0;585 0 0" dur="6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2.8s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+  
+  <!-- Surface ripples and disturbances -->
+  <g opacity="0.6">
+    <ellipse cx="256" cy="100" rx="80" ry="20" fill="none" stroke="#93C5FD" stroke-width="2" opacity="0.5">
+      <animate attributeName="rx" values="80;120;80" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0.2;0.5" dur="8s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="256" cy="100" rx="60" ry="15" fill="none" stroke="#E8F4FD" stroke-width="2" opacity="0.6">
+      <animate attributeName="rx" values="60;90;60" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;0.3;0.6" dur="6s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="256" cy="100" rx="40" ry="10" fill="none" stroke="#F1F5F9" stroke-width="1.5" opacity="0.7">
+      <animate attributeName="rx" values="40;60;40" dur="4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0.4;0.7" dur="4s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+</svg> 

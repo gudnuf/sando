@@ -64,7 +64,7 @@ pub fn payment_page(connection_string: String, port: u16, protocol: String, host
                         div id="status-message" class="status-message" style="display: none;" {}
                         
                         div class="actions mt-4" {
-                            button type="submit" class="btn" { "🌊 Pay Passage" }
+                            button type="submit" class="btn btn-full" { "🌊 Pay Passage" }
                             a href="/" class="btn btn-cancel mt-2" { "🏃‍♂️ Abandon Ship" }
                         }
                     }

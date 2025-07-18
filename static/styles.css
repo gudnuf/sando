@@ -225,13 +225,13 @@ button, .btn {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    width: 100%;
+    width: auto;
     background: linear-gradient(135deg, #3B82F6, #2563EB, #1D4ED8);
     color: white;
     border: 1px solid rgba(59, 130, 246, 0.3);
-    padding: 0.875rem 1rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
     text-decoration: none;
@@ -259,9 +259,11 @@ button:hover::before, .btn:hover::before {
     left: 100%;
 }
 
+.btn-full {
+    width: 100%;
+}
+
 .btn-inline {
-    width: auto;
-    padding: 0.875rem 1.5rem;
     margin-top: 1.5rem;
 }
 
@@ -546,8 +548,14 @@ body.bg-primary, body.bg-success, body.bg-error, body.bg-info {
 }
 
 .status-container .actions .btn {
-    width: auto;
     min-width: 150px;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 /* S4.3 Connections Page */

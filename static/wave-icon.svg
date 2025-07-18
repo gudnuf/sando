@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <defs>
+    <linearGradient id="waveIconGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#60A5FA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Wave paths -->
+  <path d="M2 12 Q6 8 10 12 T18 12 T22 12" 
+        fill="none" 
+        stroke="url(#waveIconGradient)" 
+        stroke-width="2" 
+        stroke-linecap="round" 
+        opacity="0.8"/>
+  
+  <path d="M2 16 Q6 12 10 16 T18 16 T22 16" 
+        fill="none" 
+        stroke="url(#waveIconGradient)" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        opacity="0.6"/>
+  
+  <path d="M2 8 Q6 4 10 8 T18 8 T22 8" 
+        fill="none" 
+        stroke="url(#waveIconGradient)" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        opacity="0.6"/>
+  
+  <!-- Small tunnel/portal in center -->
+  <circle cx="12" cy="12" r="3" 
+          fill="none" 
+          stroke="#E8F4FD" 
+          stroke-width="1" 
+          opacity="0.7"/>
+  <circle cx="12" cy="12" r="1.5" 
+          fill="#E8F4FD" 
+          opacity="0.8"/>
+</svg> 

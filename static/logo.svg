@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <defs>
+    <linearGradient id="logoOceanGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1E40AF;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#60A5FA;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="logoWaveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#93C5FD;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#60A5FA;stop-opacity:0.3" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="200" height="80" fill="#0F172A" rx="12"/>
+  
+  <!-- Ocean waves background -->
+  <path d="M0 50 Q25 40 50 50 T100 50 T150 50 T200 50 V80 H0 Z" fill="url(#logoWaveGradient)" opacity="0.3"/>
+  <path d="M0 60 Q30 50 60 60 T120 60 T180 60 T200 60 V80 H0 Z" fill="url(#logoWaveGradient)" opacity="0.4"/>
+  <path d="M0 70 Q20 65 40 70 T80 70 T120 70 T160 70 T200 70 V80 H0 Z" fill="url(#logoWaveGradient)" opacity="0.5"/>
+  
+  <!-- Portal/tunnel icon -->
+  <g transform="translate(20, 20)">
+    <circle cx="20" cy="20" r="18" fill="none" stroke="url(#logoOceanGradient)" stroke-width="2" opacity="0.8"/>
+    <circle cx="20" cy="20" r="12" fill="none" stroke="#93C5FD" stroke-width="2" opacity="0.6"/>
+    <circle cx="20" cy="20" r="6" fill="none" stroke="#E8F4FD" stroke-width="1.5" opacity="0.8"/>
+    <circle cx="20" cy="20" r="3" fill="#E8F4FD" opacity="0.9"/>
+    <!-- Flowing particles -->
+    <circle cx="32" cy="15" r="1" fill="#93C5FD" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;0.3;0.7" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="8" cy="25" r="0.8" fill="#60A5FA" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="28" cy="32" r="0.6" fill="#E8F4FD" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- SANDO text -->
+  <text x="75" y="35" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill="url(#logoOceanGradient)" filter="url(#glow)">
+    SANDO
+  </text>
+  
+  <!-- .blue text -->
+  <text x="148" y="35" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#60A5FA">
+    .blue
+  </text>
+  
+  <!-- Tagline -->
+  <text x="75" y="52" font-family="Inter, sans-serif" font-size="10" font-weight="400" fill="#93C5FD" opacity="0.8">
+    Tunnel Through the Ocean Depths
+  </text>
+</svg> 

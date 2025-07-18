@@ -1,0 +1,62 @@
+{
+  "name": "Sando.blue - Ocean Tunnels",
+  "short_name": "Sando",
+  "description": "Create secure tunnels through the ocean depths",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["networking", "developer", "utilities"],
+  "icons": [
+    {
+      "src": "/static/favicon.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/static/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Connect Service",
+      "short_name": "Connect",
+      "description": "Create a new tunnel connection",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/static/favicon.svg",
+          "sizes": "32x32",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Ocean View",
+      "short_name": "Connections",
+      "description": "View all active connections",
+      "url": "/connections",
+      "icons": [
+        {
+          "src": "/static/favicon.svg",
+          "sizes": "32x32",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+} 

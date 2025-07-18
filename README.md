@@ -1,21 +1,54 @@
-# Sando - Database Connection Manager
+# Sando - Sando-wich subway tunneling
 
-A Rust web application built with Axum that manages database connection strings and provides reverse proxy functionality.
+⚠️ **Warning: This is production ready software with absolutely no bugs**
+
+## Quickstart
+
+You can use this service at https://sando.blue
+
+⚠️⚠️ **Only pay with testnut, all payments are burned**
+
+### Holesail
+
+For the server to work you will need to install [holesail](https://holesail.io). The recommended installation is to  run as specified [here](https://github.com/gudnuf/holesail-nix/tree/latest). You can also find docs on how to install with npm. The *important* part is that you have `holesail` in your path.
+
+If you already have nix, then run 
+
+```bash
+nix profile install github:gudnuf/holesail-nix/latest
+```
+
+Holesail will be used for establishing P2P connections for the proxy.
+
+### Sando
+
+Make sure you have nix installed. Use [Determinate Nix Installer](https://determinate.systems/) for the best installation with flakes enabled out of the box.
+
+Enter the dev shell
+
+```bash
+nix develop
+```
+
+Start the app:
+
+```bash
+export HOST=localhost #default
+export PORT=3000 #default
+cargo run
+```
 
 ## Features
 
-- ✅ Submit database connection strings via web form
-- ✅ Store connections in SQLite database with timestamps
-- ✅ View all submitted connections in a list
 - ✅ Reverse proxy via subdomain routing (e.g., `{connection-string}.{HOST}:{PORT}`)
-- ✅ **NUT-24: HTTP 402 Payment Required** - Cashu token-based payments for connection submissions
+- ✅ Holesail for P2P tunnelting
+- ✅ **NUT-24: HTTP 402 Payment Required** - [cashu](https://github.com/CashuBTC) token-based payments for connection submissions
 
 ## Tech Stack
 
 - **Axum** - Web framework
 - **SQLx** - Database operations
 - **Maud** - HTML templating
-- **Serde** - Serialization/deserialization
 
 ## NUT-24 Payment Integration
 
@@ -101,41 +134,6 @@ HTTP/1.1 400 Bad Request
 Invalid payment token provided
 ```
 
-## Configuration
-
-The application uses environment variables for configuration:
-
-- **`HOST`** - The base domain for your application (default: `localhost`)
-- **`PORT`** - The port the server runs on (default: `3000`)
-
-### Examples
-
-```bash
-# Development with default settings
-cargo run
-
-# Development with custom domain
-HOST=myapp.local PORT=3000 cargo run
-
-# Production setup
-HOST=sando.example.com PORT=80 cargo run
-
-# HTTPS behind reverse proxy
-HOST=sando.example.com PORT=8080 cargo run
-```
-
-## Quick Start
-
-```bash
-# Clone and run
-git clone <repository>
-cd sando
-cargo run
-
-# Access the application  
-open http://${HOST:-localhost}:${PORT:-3000}
-```
-
 ## Routes
 
 - `GET /` - Home page with connection form
@@ -154,15 +152,3 @@ The codebase uses structured tagging for machine-readability:
 - **R4.x** - Proxy route handlers (`src/routes/proxy.rs`)
 - **C1.x** - Home page components (`src/components/home_page.rs`)
 - **C2.x** - Status page components (`src/components/status_page.rs`)
-
-## Development
-
-```bash
-# Check compilation
-cargo check
-
-# Run with debug logs
-RUST_LOG=debug cargo run
-
-# Database migrations are applied automatically on startup
-```
