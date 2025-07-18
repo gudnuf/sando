@@ -100,7 +100,7 @@ pub async fn submit_connection(
                                 Err(e) => (false, format!("Failed to store connection: {}", e)),
                             };
 
-                            Html(status_page(success, message, form.connection.clone(), "http".to_string(), format!("{}:{}", app_state.host, app_state.port)).into_string()).into_response()
+                            Html(status_page(success, message, form.connection.clone(), "https".to_string(), format!("{}", app_state.host)).into_string()).into_response()
                         },
                         Ok(false) => {
                             // Generic validation failure
