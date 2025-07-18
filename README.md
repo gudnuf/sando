@@ -2,19 +2,21 @@
   <img src="static/wave-icon.svg" alt="Sando Wave Logo" width="120" height="120">
 </p>
 
-# Sando - Sando-wich subway tunneling
+# Sando-wich subway tuNneling
 
 skibidi bop
 
-⚠️ **Warning: This is production ready software with absolutely no bugs**
+⚠️ **Warning: This software has more test coverage than sqlite and is 100% production ready to be deployed at massive scales.**
 
 yes yes yes
 
 ## Quickstart
 
-You can use this service at https://sando.blue
+- You can use this service at [sando.blue](https://sando.blue) and follow the instructions for setting up a connection there. 
 
-⚠️⚠️ **Only pay with testnut, all payments are burned**
+⚠️⚠️ **Only pay with testnut, all incoming payments sink into the void of absolution until they access an array index that’s outside the allocated memory... ...... think...ing... anyways**
+
+Did you guys catch the game? I heard they just did things with [cashu](https://github.com/cashubtc/nuts) 😮🤯😱🙀😵🤤🫨🥺😳​​​​​​​​​​​​​​​​
 
 ### Holesail
 
@@ -27,6 +29,8 @@ nix profile install github:gudnuf/holesail-nix/latest
 ```
 
 Holesail will be used for establishing P2P connections for the proxy.
+
+‼️ Goose couldn't figure out how pear.io works which underlies holesail. But after decipering the user's vague request proof selection can be improved **always**, you have to think outside the box brother. 
 
 ### Sando
 
