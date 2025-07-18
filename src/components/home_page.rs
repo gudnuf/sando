@@ -112,6 +112,9 @@ pub fn home_page() -> Markup {
             }
             body {
                 div class="container" {
+                    div style="text-align: center; margin-bottom: 1rem;" {
+                        img src="/static/wave-icon.svg" alt="Sando Wave Logo" style="width: 80px; height: 80px; margin-bottom: 1rem;";
+                    }
                     h1 { "Sando" span style="color: #60A5FA;" { ".blue" } }
                     p style="text-align: center; margin-bottom: 2rem; color: #93C5FD;" { 
                         "Create secure tunnels through the ocean depths" 

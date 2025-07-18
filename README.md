@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="static/wave-icon.svg" alt="Sando Wave Logo" width="120" height="120">
+</p>
+
 # Sando - Sando-wich subway tunneling
 
 ⚠️ **Warning: This is production ready software with absolutely no bugs**
