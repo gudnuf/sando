@@ -138,7 +138,7 @@ pub async fn submit_connection(
                 .status(StatusCode::PAYMENT_REQUIRED)
                 .header("X-Cashu", payment_request.to_string())
                 .header("Content-Type", "text/html")
-                .body(payment_page(form.connection, form.port, "http".to_string(), format!("{}:{}", app_state.host, app_state.port), payment_request).into_string().into())
+                .body(payment_page(form.connection, form.port, "https".to_string(), format!("{}", app_state.host), payment_request).into_string().into())
                 .unwrap();
                 
             response

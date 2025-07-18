@@ -98,9 +98,9 @@ pub fn connections_list(connections: &[Connection], host: &str, port: u16) -> Ma
                                             } else {
                                                 connection.connection_string.clone()
                                             };
-                                            @let full_url = format!("http://{}.{}:{}", connection.connection_string, host, port);
-                                            a href=(full_url) target="_blank" title=(format!("{}.{}:{}", connection.connection_string, host, port)) {
-                                                "🚢 " (truncated_connection) "." (host) ":" (port)
+                                            @let full_url = format!("https://{}.{}", connection.connection_string, host);
+                                            a href=(full_url) target="_blank" title=(format!("{}.{}", connection.connection_string, host)) {
+                                                "🚢 " (truncated_connection) "." (host)
                                             }
                                         }
                                         div class="connection-actions" {
