@@ -19,6 +19,7 @@ use axum::{
 use cdk::{nuts::{Token, PaymentRequest, CurrencyUnit}, mint_url::MintUrl, Amount};
 use std::str::FromStr;
 use uuid::Uuid;
+use rand::Rng;
 
 // R2.2 Payment Configuration
 // Configuration for the payment requirements
@@ -85,22 +86,29 @@ pub async fn submit_connection(
                             // Valid payment, proceed with connection storage
                             tracing::info!("Valid payment received for connection: {}", form.connection);
                             
-                            let result = sqlx::query("INSERT INTO connections (connection_string, port) VALUES (?, ?)")
+                            // Generate random port in range 3001-8000
+                            let random_port = rand::thread_rng().gen_range(3001..=8000);
+                            
+                            // Use provided subdomain or default to connection_string
+                            let subdomain = form.subdomain.as_ref().unwrap_or(&form.connection).clone();
+                            
+                            let result = sqlx::query("INSERT INTO connections (connection_string, port, subdomain) VALUES (?, ?, ?)")
                                 .bind(&form.connection)
-                                .bind(form.port as i32)
+                                .bind(random_port)
+                                .bind(&subdomain)
                                 .execute(app_state.pool.as_ref())
                                 .await;
 
                             let (success, message) = match result {
                                 Ok(_) => (
                                     true,
-                                    format!("Connection '{}' on port {} successfully stored! Proxy available at: {}.{}:{}", 
-                                           form.connection, form.port, form.connection, app_state.host, app_state.port),
+                                    format!("Connection '{}' successfully stored! Proxy available at: https://{}.{}", 
+                                           form.connection, subdomain, app_state.host),
                                 ),
                                 Err(e) => (false, format!("Failed to store connection: {}", e)),
                             };
 
-                            Html(status_page(success, message, form.connection.clone(), "https".to_string(), format!("{}", app_state.host)).into_string()).into_response()
+                            Html(status_page(success, message, subdomain, "https".to_string(), format!("{}", app_state.host)).into_string()).into_response()
                         },
                         Ok(false) => {
                             // Generic validation failure
@@ -133,12 +141,16 @@ pub async fn submit_connection(
             // No payment provided, return HTTP 402 with payment page
             tracing::info!("Payment required for connection submission: {}", form.connection);
             
-            let payment_request = create_payment_request();            
+            let payment_request = create_payment_request();   
+            
+            // Use provided subdomain or default to connection_string for display
+            let subdomain = form.subdomain.as_ref().unwrap_or(&form.connection).clone();
+            
             let response = Response::builder()
                 .status(StatusCode::PAYMENT_REQUIRED)
                 .header("X-Cashu", payment_request.to_string())
                 .header("Content-Type", "text/html")
-                .body(payment_page(form.connection, form.port, "https".to_string(), format!("{}", app_state.host), payment_request).into_string().into())
+                .body(payment_page(form.connection, subdomain, "https".to_string(), format!("{}", app_state.host), payment_request).into_string().into())
                 .unwrap();
                 
             response

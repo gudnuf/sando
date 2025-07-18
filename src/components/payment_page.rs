@@ -15,8 +15,8 @@ use cdk::nuts::PaymentRequest;
 
 // C4.2 Payment Page Component
 // Renders a page with a form for users to input their Cashu token
-pub fn payment_page(connection_string: String, port: u16, protocol: String, host: String, payment_request: PaymentRequest) -> Markup {
-    let service_url = format!("{}://{}.{}", protocol, connection_string, host);
+pub fn payment_page(connection_string: String, subdomain: String, protocol: String, host: String, payment_request: PaymentRequest) -> Markup {
+    let service_url = format!("{}://{}.{}", protocol, subdomain, host);
     
     html! {
         (DOCTYPE)
@@ -47,7 +47,7 @@ pub fn payment_page(connection_string: String, port: u16, protocol: String, host
                     
                     form id="payment-form" method="POST" action="/submit" class="payment-form" {
                         input type="hidden" name="connection" value=(connection_string);
-                        input type="hidden" name="port" value=(port);
+                        input type="hidden" name="subdomain" value=(subdomain);
                         
                         div class="form-group" {
                             label for="cashu-token" { 
@@ -126,7 +126,7 @@ fn payment_script() -> String {
                     },
                     body: new URLSearchParams({
                         connection: formData.get('connection'),
-                        port: formData.get('port')
+                        subdomain: formData.get('subdomain')
                     })
                 });
                 

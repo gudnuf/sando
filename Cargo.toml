@@ -27,6 +27,7 @@ thiserror = "1.0.63"
 uuid = { version = "1.10.0", features = ["v4", "serde"] }
 url = "2.5.2"
 hex = "0.4.3"
+rand = "0.8.5"
 cdk = { version = "0.11.0", features = ["wallet"] }
 bip39 = { version = "2.1.0", features = ["rand"] }
 # Temporarily commented out due to libsqlite3-sys conflicts with SQLx

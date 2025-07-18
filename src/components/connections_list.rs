@@ -93,14 +93,15 @@ pub fn connections_list(connections: &[Connection], host: &str, port: u16) -> Ma
                                     div class="connection-header" {
                                         input type="checkbox" class="connection-select" value=(connection.id) onchange="updateSelection()";
                                         div class="connection-info" {
-                                            @let truncated_connection = if connection.connection_string.len() > 20 {
-                                                format!("{}...", &connection.connection_string[..20])
+                                            @let display_subdomain = connection.subdomain.as_ref().unwrap_or(&connection.connection_string);
+                                            @let truncated_subdomain = if display_subdomain.len() > 20 {
+                                                format!("{}...", &display_subdomain[..20])
                                             } else {
-                                                connection.connection_string.clone()
+                                                display_subdomain.clone()
                                             };
-                                            @let full_url = format!("https://{}.{}", connection.connection_string, host);
-                                            a href=(full_url) target="_blank" title=(format!("{}.{}", connection.connection_string, host)) {
-                                                "🚢 " (truncated_connection) "." (host)
+                                            @let full_url = format!("https://{}.{}", display_subdomain, host);
+                                            a href=(full_url) target="_blank" title=(format!("{}.{}", display_subdomain, host)) {
+                                                "🚢 " (truncated_subdomain) "." (host)
                                             }
                                         }
                                         div class="connection-actions" {

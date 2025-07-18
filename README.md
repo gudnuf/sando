@@ -56,6 +56,12 @@ For production deployments, Sando requires:
    - Handles subdomain routing to forward requests to the appropriate holesail connections
    - Enables the reverse proxy functionality via subdomain routing (e.g., `{connection-string}.yourdomain.com`)
 
+### Databas Migrations
+
+```bash
+DATABASE_URL="sqlite:connections.db" sqlx migrate run
+```
+
 ## Features
 
 - ✅ Reverse proxy via subdomain routing (e.g., `{connection-string}.{HOST}:{PORT}`)

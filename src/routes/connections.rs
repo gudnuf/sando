@@ -19,7 +19,7 @@ use serde::Deserialize;
 #[tracing::instrument(name = "list_connections", skip(app_state))]
 pub async fn list_connections(State(app_state): State<AppState>) -> Html<String> {
     let connections = sqlx::query_as::<_, Connection>(
-        "SELECT id, connection_string, port, created_at FROM connections ORDER BY created_at DESC",
+        "SELECT id, connection_string, port, subdomain, created_at FROM connections ORDER BY created_at DESC",
     )
     .fetch_all(app_state.pool.as_ref())
     .await

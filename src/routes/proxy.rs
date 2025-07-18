@@ -101,9 +101,9 @@ async fn proxy_request(
     headers: HeaderMap,
     body: Body,
 ) -> Result<Response, StatusCode> {
-    // Look up the connection in the database
+    // Look up the connection in the database by subdomain
     let connection = sqlx::query_as::<_, Connection>(
-        "SELECT id, connection_string, port, created_at FROM connections WHERE connection_string = ?",
+        "SELECT id, connection_string, port, subdomain, created_at FROM connections WHERE subdomain = ?",
     )
     .bind(connection_string)
     .fetch_optional(app_state.pool.as_ref())

@@ -137,17 +137,16 @@ pub fn home_page() -> Markup {
                                     placeholder="holesail --live <port_to_make_live> --background" 
                                     required;
 
-                                label for="port" style="display: block; margin-bottom: 0.5rem; font-weight: 600;" {
-                                    "Port Number"
+                                label for="subdomain" style="display: block; margin-bottom: 0.5rem; font-weight: 600;" {
+                                    "Custom Subdomain (Optional)"
                                 }
                                 input
-                                    type="number"
-                                    id="port"
-                                    name="port"
-                                    min="3001"
-                                    max="8000"
-                                    placeholder="3001-8000 (pick a random one)"
-                                    required;
+                                    type="text"
+                                    id="subdomain"
+                                    name="subdomain"
+                                    placeholder="my-app (defaults to connection string)"
+                                    pattern="[a-zA-Z0-9-]+"
+                                    title="Only letters, numbers, and hyphens allowed";
                             }
                             button type="submit" class="btn-full" style="padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: 600;" {
                                 span class="icon" { "🚀" }

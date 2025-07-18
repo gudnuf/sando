@@ -16,7 +16,7 @@ use sqlx::FromRow;
 #[derive(Deserialize)]
 pub struct ConnectionForm {
     pub connection: String,
-    pub port: u16,
+    pub subdomain: Option<String>, // Optional custom subdomain
 }
 
 // T1.3 Connection
@@ -26,5 +26,6 @@ pub struct Connection {
     pub id: i64,
     pub connection_string: String,
     pub port: i32,
+    pub subdomain: Option<String>, // Optional custom subdomain
     pub created_at: String,
 }
