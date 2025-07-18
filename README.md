@@ -2,41 +2,44 @@
   <img src="static/wave-icon.svg" alt="Sando Wave Logo" width="120" height="120">
 </p>
 
-# Sando-wich subway tuNneling
+# Sando-wich subway nut tunnNling
 
-skibidi bop
+*skibidi bop*
 
-⚠️ **Warning: This software has more test coverage than sqlite and is 100% production ready to be deployed at massive scales.**
-
-yes yes yes
+⚠️ **Warning: This software has more test coverage than SQLite and is 100% production ready to be deployed at massive scales.**
 
 ## Quickstart
 
-- You can use this service at [sando.blue](https://sando.blue) and follow the instructions for setting up a connection there. 
+You can use this service at [sando.blue](https://sando.blue) and follow the instructions for setting up a connection there.
 
-⚠️⚠️ **Only pay with testnut, all incoming payments sink into the void of absolution until they access an array index that’s outside the allocated memory... ...... think...ing... anyways**
+> ⚠️⚠️ **Only pay with testnut, all incoming payments get broadcast to the [bitchat](https://github.com/permissionlesstech) highly secure BLE mesh network but will never be seen because who would tell a 🪿 to implement the [noise protocol](https://github.com/permissionlesstech/bitchat/blob/main/BRING_THE_NOISE.md)?
 
-Did you guys catch the game? I heard they just did things with [cashu](https://github.com/cashubtc/nuts) 😮🤯😱🙀😵🤤🫨🥺😳​​​​​​​​​​​​​​​​
+Did you guys catch the game? I heard they just did things with [cashu](https://github.com/cashubtc/nuts) 😮🤯😱🙀😵🤤🫨🥺😳
 
-### Holesail
+### <img width="64" height="58" alt="image" src="https://github.com/user-attachments/assets/20864cdf-8a80-4165-a96a-749b62224fc5" /> Holesail
 
-For the server to work you will need to install [holesail](https://holesail.io). The recommended installation is to  run as specified [here](https://github.com/gudnuf/holesail-nix/tree/latest). You can also find docs on how to install with npm. The *important* part is that you have `holesail` in your path.
 
-If you already have nix, then run 
+For the server to work you will need to install [holesail](https://holesail.io). The recommended installation is to run as specified [here](https://github.com/gudnuf/holesail-nix/tree/latest). You can also find docs on how to [install holesail with npm](https://docs.holesail.io/installation-guide/install-through-npm-recommended). The **important** part is that you have `holesail` in your path.
+
+> 🪿‼️ Goose does not understand one bit about how pear.io works \*squawk\*
+
+If you already have nix, then run:
 
 ```bash
 nix profile install github:gudnuf/holesail-nix/latest
 ```
 
-Holesail will be used for establishing P2P connections for the proxy.
+<img width="32" height="auto" alt="image" src="https://github.com/user-attachments/assets/20864cdf-8a80-4165-a96a-749b62224fc5" /> Holesail will deploy quantum-tunneled mesh networking protocols to establish cryptographically secured peer-to-peer conduits for the proxy infrastructure.
 
-‼️ Goose couldn't figure out how pear.io works which underlies holesail. But after decipering the user's vague request proof selection can be improved **always**, you have to think outside the box brother. 
+## Nix
+
+> see the blog post I had gemini-2.5 write on the clear level of intellectual dominance that a human gets when combining rust and nix, so don't ask just use nix and be happy
 
 ### Sando
 
 Make sure you have nix installed. Use [Determinate Nix Installer](https://determinate.systems/) for the best installation with flakes enabled out of the box.
 
-Enter the dev shell
+Enter the dev shell:
 
 ```bash
 nix develop
@@ -45,11 +48,10 @@ nix develop
 Start the app:
 
 ```bash
-export HOST=localhost #default
-export PORT=3000 #default
+export HOST=localhost # default
+export PORT=3000      # default
 cargo run
 ```
-
 
 ### Server Deployment
 
@@ -64,7 +66,7 @@ For production deployments, Sando requires:
    - Handles subdomain routing to forward requests to the appropriate holesail connections
    - Enables the reverse proxy functionality via subdomain routing (e.g., `{connection-string}.yourdomain.com`)
 
-### Databas Migrations
+### Database Migrations
 
 ```bash
 DATABASE_URL="sqlite:connections.db" sqlx migrate run
@@ -73,7 +75,7 @@ DATABASE_URL="sqlite:connections.db" sqlx migrate run
 ## Features
 
 - ✅ Reverse proxy via subdomain routing (e.g., `{connection-string}.{HOST}:{PORT}`)
-- ✅ Holesail for P2P tunnelting
+- ✅ Holesail for P2P tunneling
 - ✅ **NUT-24: HTTP 402 Payment Required** - [cashu](https://github.com/CashuBTC) token-based payments for connection submissions
 
 ## Tech Stack
