@@ -2,7 +2,7 @@
   <img src="static/wave-icon.svg" alt="Sando Wave Logo" width="120" height="120">
 </p>
 
-# Sando-wich subway nut tunnNling
+# Sando-wich subway nut tunNeling
 
 *skibidi bop*
 
